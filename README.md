@@ -1,2 +1,3 @@
-# MSc_statistics_n_Data_Science
+# coursework
+## Msc. Statistics & Data Science
 All the course work is pasted here
