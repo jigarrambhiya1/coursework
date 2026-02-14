@@ -1,20 +1,26 @@
-AMA-2
 library(readr)
+walmart <- read_csv("C:/Users/nmims.student/Downloads/walmart.csv")
+View(walmart)
 
 #Practical 1 
 walmart <- read.csv("C:/Users/nmims.student/Downloads/walmart.csv")
 
 #To check dimensions
 dim(walmart)
+
 #To find type of data for each variable
 sapply(walmart,class)
+
 #Changing type od date variable from character date
 walmart$Date=as.Date(walmart$Date,"%d-%m-%Y")
 sapply(walmart,class)
+
 #Checking for Missing values
 sapply(walmart,function(x){ sum(is.na(x))})
+
 #Treating missing values
 library("dplyr")
+
 #deleting variable (vehicles)
 df=select(walmart,-10)
 
@@ -26,6 +32,7 @@ df$CPI[is.na(df$CPI)]=round(mean(df$CPI,na.rm = TRUE))
 table(df$IsHoliday)
 df$IsHoliday[is.na(df$IsHoliday)]=FALSE
 str(df)
+
 my_mode=function(x){  #create mode function
   unique_x=unique(x)#returns unique values in the function 
   tabulate_x=tabulate(match(x,unique_x)) #returns no.of false and true values
@@ -34,12 +41,11 @@ my_mode=function(x){  #create mode function
 
 df$IsHoliday[is.na(df$IsHoliday)]=my_mode(df$IsHoliday)
 sapply(df,function(x) sum(is.na(x)))
+
 #METHOD 2:MICE
 library("mice")
 md.pattern(walmart)
-
 md.pattern(df)
-
 mice_result=mice(walmart[,-10],m=5,method='pmm',seed=123)
 summary(mice_result)
 data_mice_imputed=complete(mice_result,1)
@@ -88,6 +94,7 @@ d=density(df$Unemployment)
 plot(d,main="unemployment")
 polygon(d,col="red",border="blue")
 skewness(df$Unemployment)
+
 #Transformation
 #log
 df$Unemploymentlog=log(df$Unemployment)
@@ -123,7 +130,6 @@ polygon(d,col="red",border="blue")
 #QQ plot
 qqnorm(df$Unemployment, pch=1, frame= FALSE)
 qqline(df$Unemployment, col="steelblue", lwd=2)
-
 
 #label encoding 
 df$IsHoliday=ifelse(df$IsHoliday=="TRUE",1,0)
