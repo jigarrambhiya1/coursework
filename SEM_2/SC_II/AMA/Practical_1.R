@@ -143,3 +143,6 @@ df$CPI=scale(df$CPI)
 walmart$year=format(walmart$Date,"%Y")
 walmart$day=format(walmart$Date,"%d")
 walmart$month=format(walmart$Date,"%m")
+
+
+# Final Changes
